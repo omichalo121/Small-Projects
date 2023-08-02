@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang ="en">
+    <head>
+        <title>Goo Advanced!</title>
+        <link rel="stylesheet" href="styles.css"></link>
+    </head>
+    <body>
+        <ol>
+            <a href="index.html">Go back to search!</a>
+        </ol>
+        <div id="advImg">
+            <img  src="static/advanced.png">
+        </div>
+        <div class="searchAdv">
+            all these words:
+            <input type="next" name="name" id="all">
+            this exact word or phrase:
+            <input type="next" name="name" id="exact">
+            any of these words:
+            <input type="next" name="name" id="any">
+            none of these words:
+            <input type="next" name="name" id="none">
+            <ol class="buttons">
+                <button class="submit" id="search" onclick="search()">Advanced search</button>
+            </ol>
+        </div>
+    </body>
+    <script>
+        function search() {
+            const all = document.getElementById("all").value.replace(/ /g, '+');
+            const exact = document.getElementById("exact").value.replace(/ /g, '+');
+            const any = document.getElementById("any").value.replace(/ /g, '+');
+            const none = document.getElementById("none").value.replace(/ /g, '+');
+            if(!all && !exact && !any && !none) {
+                window.location.href = 'index.html';
+            } else {
+                const googleUrl = `https://www.google.com/search?as_q=${encodeURIComponent(all)}&as_epq=${encodeURIComponent(exact)}&as_oq=${encodeURIComponent(any)}&as_eq=${encodeURIComponent(none)}&as_nlo=&as_nhi=&lr=&cr=&as_qdr=all&as_sitesearch=&as_occt=any&as_filetype=&tbs=`;
+                window.location.href = googleUrl;
+            }
+        }
+    </script>
+</html>
