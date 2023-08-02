@@ -1,0 +1,34 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    {% if show > 0 %}
+        <h2>Your bids:</h2>
+        {% for bid, item in pack %}
+            <a href="{% url 'listing' item.id %}" style="text-decoration: none; color: inherit;">
+            <div style="border: 2px solid lightgray; border-radius: 15px; display: flex; flex-direction: row;">
+                {% if item.img %}
+                    <img style="width: 350px; height: 250px;" src="{{ item.img }}"><br>
+                {% endif %}
+                <div>
+                    <ul style="list-style-type: none; font-weight: bold;">
+                        <li style="font-size: 25px;">{{ item.title }}</li>
+                        <li style="font-size: 20px;">Current price: ${{ item.price }}</li><br>
+                        <li>{{ item.description }}</li><br>
+                        <div style="color: gray; font-size: 12px;">
+                            <li>Created on {{ item.added }}</li>
+                            <li>Expires on {{ item.expires }}</li>
+                            <li style="font-size: 14px; margin-top: 15px;">You placed your bet on {{ bid.timestamp }}</li>
+                            {% if bid.lost == 'N' %}
+                                <p style="color: green;">You are currently leading the auction.</p>
+                            {% else %}
+                                <p style="color: red;">Someone beat your price.</p>
+                            {% endif %}
+                        </div>
+                    </ul>
+                </div>
+            </div></a>
+        {% endfor %}
+    {% else %}
+            <h2>You currently have no bids.</h2>
+    {% endif %}
+{% endblock %}

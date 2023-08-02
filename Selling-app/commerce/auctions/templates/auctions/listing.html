@@ -1,0 +1,114 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <style>
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+    </style>
+        <div style="display: flex; flex-direction: row;">
+            <div style="width: 700px;">
+                <h3>Listing: {{ listing.title }}</h3>
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'watch' %}">
+                        {% csrf_token %}
+                        <input hidden name="listing_id" value="{{ listing.id }}">
+                        <button style="background-color: gray; border-radius: 10px; color: white;" type="submit">Watchlist</button>
+                    </form>
+                {% endif %}
+                {% if listing.img %}
+                    <img style="width: 350px; height: 250px;" src="{{ listing.img }}"><br>
+                {% endif %}
+                {% if listing.description %}
+                    {{ listing.description }}<br>
+                {% else %}
+                    No description provided by user<br>
+                {% endif %}
+                <h3 style="font-weight: bold; font-size: 28px; margin-top: 15px;">${{ listing.price }}</h3>
+                {% if user.is_authenticated and listing.active == 'Y' %}
+                    <form method="POST" action="{% url 'bid' %}">
+                        {% csrf_token %}
+                        <input style="border-radius: 5px;" type="number" step="0.01" name="bid" min="{{ listing.price }}" placeholder="Your bid" required>
+                        <input hidden name="listing" value="{{ listing.id }}">
+                        <input type="submit" value="Place bid" style="border-radius: 10px; background-color: #0079dd; color: white; font-weight: bold;">
+                    </form>
+                {% endif %}
+                <h3>Details:<br></h3>
+                <ul>
+                    <li>Listed by: {{ listing.seller }}</li>
+                    <li>Category:
+                        {% if listing.category %}
+                            {{ listing.get_category_display }}
+                        {% else %}
+                            No Category Listed.
+                        {% endif %}
+                    </li>
+                </ul>
+                {% if user.is_authenticated %}
+                <h3>Comment the listing</h3>
+                <form method="POST" action="{% url 'comment' %}">
+                    {% csrf_token %}
+                    <textarea style="width: 500px;" required name="text"></textarea>
+                    <input value="{{ listing.id }}" name="id" hidden>
+                    <div style="display: inline-block;">
+                        <label for="opinion">Select opinion:</label>
+                        <select name="opinion" id="opinion">
+                            {% for choice in choices %}
+                                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" style="margin-left: 170px;">Add Comment</button>
+                    </div>
+                </form>
+                {% endif %}
+            </div>
+            <div style="width: 500px;">
+                {% if listing.active == 'N' and listing.winner == user.username %}
+                    <p style="font-size: 25px; font-weight: bold;">
+                        Congratulations {{ listing.winner }}! You won the auction for
+                        ${{ listing.price }}.
+                    </p>
+                {% elif listing.active == 'N' %}
+                    <p style="font-size: 25px; font-weight: bold;">
+                        The auction has ended. The winner is {{ listing.winner }}.
+                        Final price: ${{ listing.price }}
+                    </p>
+                {% endif %}
+                <h3>Bids: </h3>
+                {% if bids %}
+                    <ul style="list-style-type: none;">
+                        {% for bid in bids %}
+                        <li {% if forloop.first %}style="color: green; font-weight: bold;"{% endif %}>
+                            Bidder: {{ bid.bidder }}, Amount: {{ bid.amount }}, Date: {{ bid.timestamp }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    Currently no bids.
+                {% endif %}
+            </div>
+            <div style="width: 700px;">
+                {% if comments %}
+                    <h3>Comments: </h3>
+                    {% for comment in comments %}
+                        <div style="border: 1px solid lightgray; border-radius; 5px; margin-top: 10px;">
+                            <p style="margin-left: 10px; font-weight: bold;">Author: {{ comment.author.username }}, Opinion: {{ comment.get_opinion_display }}, Added: {{ comment.date }}</p>
+                            <p style="margin-left: 10px;">{{ comment.comment }}</p>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    No comments yet. Be the first one to comment!
+                {% endif %}
+            </div>
+            {% if user == listing.seller and listing.active == 'Y' %}
+                <div style="margin-left: 200px;">
+                    <form method="POST" action="{% url 'delete' %}">
+                        {% csrf_token %}
+                        <input hidden value="{{ listing.id }}" name="id">
+                        <button type="submit">End the auction</button>
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+{% endblock %}

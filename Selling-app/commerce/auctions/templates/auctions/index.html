@@ -1,0 +1,25 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Active Listings:</h2>
+
+    {% for listing in listings %}
+        <a href="{% url 'listing' listing.id %}" style="text-decoration: none; color: inherit;">
+        <div style="border: 2px solid lightgray; border-radius: 15px; display: flex; flex-direction: row;">
+            {% if listing.img %}
+                <img style="width: 350px; height: 250px;" src="{{ listing.img }}"><br>
+            {% endif %}
+            <div>
+                <ul style="list-style-type: none; font-weight: bold;">
+                    <li style="font-size: 25px;">{{ listing.title }}</li>
+                    <li style="font-size: 20px;">Current price: ${{ listing.price }}</li><br>
+                    <li>{{ listing.description }}</li><br>
+                    <div style="color: gray; font-size: 12px;">
+                        <li>Created on {{ listing.added }}</li>
+                        <li>Expires on {{ listing.expires }}</li>
+                    </div>
+                </ul>
+            </div>
+        </div></a>
+    {% endfor %}
+{% endblock %}

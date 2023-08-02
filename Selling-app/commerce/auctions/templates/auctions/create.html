@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create Listing</h2>
+
+    <style>
+        ul li {
+            margin-bottom: 20px;
+        }
+
+        input[type=number] {
+            -moz-appearance: textfield;
+            appearance: textfield;
+        }
+    </style>
+
+    <form method="POST" action="{% url 'create' %}">
+        {% csrf_token %}
+        <ul style="list-style-type: none; margin-top: 30px;">
+            <li>
+                <input style="margin-right: 20px;" type="text" required placeholder="Listing Title" name="title">
+                <label for="category">Select Category:</label>
+                <select name="category" id="category">
+                    {% for category in categories %}
+                        <option value="{{ category.0 }}">{{ category.1 }}</option>
+                    {% endfor %}
+                </select>
+            </li>
+            <li><input style="margin-right: 20px;" type="number" required name="price" step="any" placeholder="Listing Price"><input type = "number" name="days" step="1" placeholder="Days until delete" max="14" required></li>
+            <li><input style="width: 407px;" type="text" name="img" placeholder="Image URL"></li>
+            <li><textarea name="description" style="width: 1000px; height: 400px;">Write your description of the item you're listing.</textarea></li>
+            <li><input type="submit" value="Add Listing"></li>
+        </ul>
+    </form>
+{% endblock %}

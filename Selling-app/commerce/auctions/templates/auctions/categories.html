@@ -1,0 +1,33 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Get Auctions By Category</h2>
+    <div style="width: 100%; overflow-x: hidden;">
+        <ul style="display: flex; justify-content: space-between; list-style: none; padding: 0; margin: 0;">
+            {% for category in categories %}
+                <li style="flex: 1; text-align: center; padding: 10px; font-weight: bold; font-size: 20px;">
+                    <a href="{% url 'category' category.1 %}" style="text-decoration: none; color: inherit;">{{ category.1 }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% for listing in listings %}
+        <a href="{% url 'listing' listing.id %}" style="text-decoration: none; color: inherit;">
+        <div style="border: 2px solid lightgray; border-radius: 15px; display: flex; flex-direction: row;">
+            {% if listing.img %}
+                <img style="width: 350px; height: 250px;" src="{{ listing.img }}"><br>
+            {% endif %}
+            <div>
+                <ul style="list-style-type: none; font-weight: bold;">
+                    <li style="font-size: 25px;">{{ listing.title }}</li>
+                    <li style="font-size: 20px;">Current price: ${{ listing.price }}</li><br>
+                    <li>{{ listing.description }}</li><br>
+                    <div style="color: gray; font-size: 12px;">
+                        <li>Created on {{ listing.added }}</li>
+                        <li>Expires on {{ listing.expires }}</li>
+                    </div>
+                </ul>
+            </div>
+        </div></a>
+    {% endfor %}
+{% endblock %}
