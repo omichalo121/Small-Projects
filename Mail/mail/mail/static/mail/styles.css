@@ -1,0 +1,53 @@
+textarea {
+    min-height: 400px;
+}
+
+.email {
+    border: 1px solid black;
+    display: flex;
+    font-family: sans-serif;
+    flex-direction: row;
+}
+
+.email_a {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.email_a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.email p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    flex-grow: 1;
+}
+
+.email_child {
+    border: none;
+    display: flex;
+    font-family: sans-serif;
+    flex-direction: row;
+}
+
+.email p:first-child {
+    text-align: left;
+    margin-left: 5px;
+  }
+
+.email p:nth-child(2) {
+    margin-left: -140px;
+}
+
+.email p:last-child {
+    text-align: right;
+    margin-right: 5px;
+  }
+
+.email_text {
+    height: 500px;
+    border: 1px solid black;
+}
