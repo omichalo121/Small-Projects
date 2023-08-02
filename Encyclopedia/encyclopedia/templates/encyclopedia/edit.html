@@ -1,0 +1,18 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Edit Encyclopedia!
+{% endblock %}
+
+{% block body %}
+    <h1>Editing: {{ title }}</h1><br>
+    Thank you for your time in editing this entry and adding your knowledge to make the site better! The community will owe you milk for a cookie! But now, lets get to the job!
+    <form method="POST" action="{% url 'edit' %}">
+        {% csrf_token %}
+        <input value="{{ title }}" name="title" hidden><br>
+            <textarea name="markdown" required style="width: 1300px; height: 650px; margin-top: 20px; rows: 20; columns: 200;">
+            {{ markdown }}
+            </textarea><br>
+            <button type="submit" style="height: 35px; width: 250px; margin-top: 20px;">Save changes</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,2 @@
+            Warszawa jest największym miastem w Polsce pod względem liczby ludności i powierzchni. Jest również jedynym polskim miastem, którego ustrój jest określony odrębną ustawą. Od 2002 jest gminą miejską mającą status miasta na prawach powiatu. W jej skład wchodzi 18 jednostek pomocniczych – dzielnic m.st. Warszawy. W 2020 think tank Globalization and World Cities (GaWC), badający wzajemne stosunki pomiędzy miastami świata w kontekście globalizacji zaliczył Warszawę do kategorii Alpha-. 
+            

@@ -1,0 +1,19 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Add to Encyclopedia!
+{% endblock %}
+
+{% block body %}
+    <h1>Create new site</h1><br>
+    Thank you for your time in creating the new entry and making our site bigger! The community will owe you a cookie! But now, lets get to the job!
+    <form method="POST" action="{% url 'add' %}">
+        {% csrf_token %}
+        <input required style="margin-top: 10px;" placeholder="Your entry title" name="title"><br>
+            <textarea name="markdown" required style="width: 1300px; height: 650px; margin-top: 20px; rows: 20; columns: 200;">
+            Here you can freely create an entry and later add it to our database, when doing so, anyone will have an oportunnity to search for your entry and read it!
+            It will of course get reviewed, but not to worry, we are not that strict.
+            </textarea><br>
+            <button type="submit" style="height: 35px; width: 250px; margin-top: 20px;">Add to Encyclopedia!</button>
+    </form>
+{% endblock %}

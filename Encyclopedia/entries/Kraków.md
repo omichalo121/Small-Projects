@@ -1,0 +1,1 @@
+Kraków, Stołeczne Królewskie Miasto Kraków – miasto na prawach powiatu położone w południowej Polsce nad Wisłą, drugie co do liczby mieszkańców i powierzchni miasto kraju. Formalna stolica Polski do 1795 roku i miasto koronacyjne wraz z nekropolią królów Polski na Wzgórzu Wawelskim.

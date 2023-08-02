@@ -1,0 +1,15 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Exists - Encyclopedia
+{% endblock %}
+
+{% block body %}
+    <h1>Entry already exists</h1>
+    Sorry to bother you, but we found out that this entry already exists. Maybe you should try some other title?<br>
+    Neverthless, thank you for contributing to our site!<br>
+    <a href="{% url 'index' %}">Go back home</a><br>
+    <form method="GET">
+        <a href="{% url 'add' %}">Try adding a site again</a>
+    </form>
+{% endblock %}
